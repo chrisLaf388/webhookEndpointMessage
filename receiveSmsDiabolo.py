@@ -1,16 +1,16 @@
-from flask import Flask, request, redirect, url_for,Response, render_template, jsonify
+from flask import Flask, request, jsonify
 
 app = Flask(__name__)
 
 messages = []
 
-@app.route('/api', methods=['GET','POST'])
+@app.route('/webhook', methods=['POST'])
 def respond():
-    member = request.json
-    messages.append(member)
-    print(member)
-    return jsonify(messages)
+        message = request.json
+        messages.append(message)
+        print(message)
+        return jsonify(messages)
 
-@app.route('/')
+@app.route('/api', methods=['GET'])
 def home():
-    return'welcome';
+    return jsonify(messages);
